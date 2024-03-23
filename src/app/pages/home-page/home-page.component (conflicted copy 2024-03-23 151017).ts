@@ -26,44 +26,6 @@ export class HomePageComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  extractData() {
-    let keys = this.inputData.singleRowWithAllKeys.split('\t');
-    let values: any = [];
-
-    this.inputData.singleRowWithAllValues.split('\n').forEach((row) => {
-      values.push(row.split('\t'));
-    });
-
-    console.log(keys);
-    console.log(values);
-
-    this.pivotArray(values)
-
-    keys.forEach((key) => {
-      let idx = keys.indexOf(key);
-      this.allKeysValues.push({
-        key: key,
-        values: values[idx],
-        valuesArray: values[idx],
-      });
-    });
-  }
-  pivotArray(values: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-
   generate() {
     // check if same lengyth in stringvalues
     let result = '';
@@ -85,7 +47,6 @@ export class HomePageComponent implements OnInit {
     this.result = result;
     console.log(result);
   }
-
   fillValuesArrays(allKeysValues: IKeyValues[]) {
     allKeysValues.forEach((kv) => {
       if (!kv.valuesArray) {
@@ -97,4 +58,48 @@ export class HomePageComponent implements OnInit {
   addKey() {
     this.allKeysValues.push(new KeyValues());
   }
+
+  pivotArray(arrayToPivot: any[]) {
+    console.log(arrayToPivot);
+    
+  }
+
+  extractData() {
+    let keys = this.inputData.singleRowWithAllKeys.split('\t');
+    let rowsWithTabbedValues = this.inputData.singleRowWithAllValues.split('\n');
+    let arrayToPivot:any = [];
+
+    rowsWithTabbedValues.forEach((row) => {
+      arrayToPivot.push(row.split('\t'));
+    });
+
+    this.pivotArray(arrayToPivot);
+
+
+
+    keys.forEach((k) => {
+      this.allKeysValues.push({
+        key: k,
+        values: '',
+      });
+    });
+
+
+    rowsWithTabbedValues.forEach(valuesRow=>{
+      let values = valuesRow.split('\t');
+
+    })
+
+
+
+
+
+    keys.forEach((k) => {
+      this.allKeysValues.push({
+        key: keys[0],
+        values: rowsWithTabbedValues[0],
+      });
+    });
+  }
+
 }

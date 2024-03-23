@@ -15,7 +15,7 @@ export class KeyValues implements IKeyValues {
 
 
 
-export interface IRawKeyValues {
-  keys: string;
-  values: string;
+export interface IRawInputData {
+  singleRowWithAllKeys: string;
+  singleRowWithAllValues: string;
 }
