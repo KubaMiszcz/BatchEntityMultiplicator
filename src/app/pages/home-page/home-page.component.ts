@@ -13,88 +13,74 @@ import {
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  result = 'result';
-  template = EXAMPLE_TEMPLATE;
-
-  // allKeysValues: IKeyValues[] = EXAMPLE_KEYSVALUES;
-  allKeysValues: IKeyValues[] = [];
   inputData = EXAMPLE_KEYSVALUESV2;
+  generatedOutput = 'result';
+  template = EXAMPLE_TEMPLATE;
+  keys: string[] = [];
+  valuesRows: string[][] = [];
+  keysWithValues: KeyValues[] = [];
 
   ignoredNewLineChar = '|';
 
   constructor(private appService: AppService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.extractData();
+    this.fillTextAreasContent(this.keys);
+  }
 
   extractData() {
-    let keys = this.inputData.singleRowWithAllKeys.split('\t');
-    let values: any = [];
+    this.keys = this.inputData.singleRowWithAllKeys.trim().split('\t');
+    this.valuesRows = [];
 
-    this.inputData.singleRowWithAllValues.split('\n').forEach((row) => {
-      values.push(row.split('\t'));
-    });
+    // this.appService.pivotArray(values);
 
-    console.log(keys);
-    console.log(values);
-
-    this.pivotArray(values)
-
-    keys.forEach((key) => {
-      let idx = keys.indexOf(key);
-      this.allKeysValues.push({
-        key: key,
-        values: values[idx],
-        valuesArray: values[idx],
+    this.inputData.singleRowWithAllValues
+      .trim()
+      .split('\n')
+      .forEach((row) => {
+        this.valuesRows.push(row.split('\t'));
       });
+  }
+
+  getValuesForKey(key: string) {
+    console.log('keys', key);
+    return 'ee';
+  }
+
+  fillTextAreasContent(keys: string[]) {
+    keys.forEach((k) => {
+      let idx = keys.indexOf(k);
+      let keyValue: IKeyValues = {
+        key: k,
+        values: '',
+      };
+
+      this.valuesRows.forEach((v) => {
+        keyValue.values += v[idx] + '\n';
+      });
+
+      this.keysWithValues.push(keyValue);
     });
   }
-  pivotArray(values: any) {
-    throw new Error('Method not implemented.');
-  }
 
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
-  //////////////////////////////
 
-  generate() {
+  generateOutput() {
     // check if same lengyth in stringvalues
     let result = '';
-    let item = this.template;
-
-    this.fillValuesArrays(this.allKeysValues);
-    let count = this.allKeysValues[0]?.valuesArray?.length ?? 0;
-    for (let index = 0; index < count; index++) {
-      item = this.template;
-
-      this.allKeysValues.forEach((keyValues) => {
-        item = item.replaceAll(keyValues.key, keyValues.valuesArray![index]);
+    
+    this.valuesRows.forEach((valueRow) => {
+      let entryToAppend = this.template;
+      valueRow.forEach((value) => {
+        let idx = valueRow.indexOf(value);
+        let key = this.keys[idx];
+        entryToAppend = entryToAppend.replaceAll(key, value);
       });
 
-      result += item;
-      result += '\n\n';
-    }
-
-    this.result = result;
-    console.log(result);
-  }
-
-  fillValuesArrays(allKeysValues: IKeyValues[]) {
-    allKeysValues.forEach((kv) => {
-      if (!kv.valuesArray) {
-        kv.valuesArray = kv.values.split('\n');
-      }
+      result += entryToAppend + '\n\n';
     });
-  }
 
-  addKey() {
-    this.allKeysValues.push(new KeyValues());
+    this.generatedOutput = result;
+    console.log(result);
   }
 }

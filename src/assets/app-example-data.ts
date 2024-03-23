@@ -15,7 +15,7 @@ export const EXAMPLE_KEYSVALUES = [
 ];
 
 export const EXAMPLE_KEYSVALUESV2: IRawInputData = {
-  singleRowWithAllKeys: '{cn1}\t{uidNo1}',
+  singleRowWithAllKeys: '{cn}\t{uidNo}',
   singleRowWithAllValues:
     '3p1s-SWYB-kobra22\tTeamMember\n2p3s-RTO-Malej \tTeamMember\n3p2s--Pawulon\tTeamMember\n1p2s-DCA-MANIEK\tTeamLeader\n',
 };
