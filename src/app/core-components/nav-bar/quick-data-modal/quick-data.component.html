@@ -1,0 +1,22 @@
+<div *ngFor="let item of quickData" class="mb-1 ">
+    {{item.key}}:<br>
+
+    <div *ngIf="!isLoading" class="input-group mb-3 d-flex">
+        <div class="input-group-text d-flex justify-content-center w-80" id="basic-addon11">{{item.value}}</div>
+        <button class="input-group-text btn btn-outline-primary m-0 w-20" type="button"
+            [cdkCopyToClipboard]="item.value"><i class="fas fa-copy "></i></button>
+    </div>
+
+    <div class=" d-flsex justify-content-centesr text-center">
+        <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+
+</div>
+
+<!-- <div *ngFor="let item of quickData" class="mb-1">{{item.key}}:<br><code>{{item.value}}</code>
+    <button type="button" class="btn btn-primary btn-sm ms-2" [cdkCopyToClipboard]="item.value">
+        <i class="fas fa-copy "></i>
+    </button>
+</div> -->
