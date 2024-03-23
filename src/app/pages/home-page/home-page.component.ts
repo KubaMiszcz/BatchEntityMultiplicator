@@ -1,6 +1,4 @@
-import { KeyValues } from './../../models/KeyValues.model';
-import { IKeyValues } from '../../models/KeyValues.model';
-import { combineLatestWith } from 'rxjs';
+import { IKeyValues, KeyValues } from './../../models/KeyValues.model';
 import { AppService } from '../../services/app.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,7 +11,7 @@ export class HomePageComponent implements OnInit {
   result = 'result';
   template = EXAMPLE_TEMPLATE;
 
-  allKeyValues: IKeyValues[] = EXAMPLE_KEYVALUES;
+  allKeysValues: IKeyValues[] = EXAMPLE_KEYSVALUES;
 
   string1key = '{cn}';
   strings1values = 'Maniek\nGrazyna';
@@ -29,77 +27,47 @@ export class HomePageComponent implements OnInit {
 
   generate() {
     // check if same lengyth in stringvalues
-    let result = '';
+let result = '';
     let item = this.template;
 
-    let count = this.allKeyValues[0]?.values.length;
+    this.fillValuesArrays(this.allKeysValues);
+    let count = this.allKeysValues[0]?.valuesArray?.length ?? 0;
     for (let index = 0; index < count; index++) {
-      let item = this.template;
-      let keyValues;
+      item = this.template;
 
-      item = item.replaceAll(this.string1key, strings1valuesArray[index]);
-      item = item.replaceAll(this.string2key, strings2valuesArray[index]);
+      this.allKeysValues.forEach((keyValues) => {
+        item = item.replaceAll(keyValues.key, keyValues.valuesArray![index]);
+      });
 
       result += item;
       result += '\n\n';
     }
 
 
-
+    this.result = result;
+    console.log(result);
   }
+  fillValuesArrays(allKeysValues: IKeyValues[]) {
+    allKeysValues.forEach((kv) => {
+      if (!kv.valuesArray) {
+        kv.valuesArray = kv.values.split('\n');
+      }
+    });
+  }
+
   generate2() {
     // check if same lengyth in stringvalues
     let result = '';
     let item = this.template;
 
-    let count = this.allKeyValues[0]?.values.length;
+    let count = this.allKeysValues[0]?.values.length;
+    count = 1;
     for (let index = 0; index < count; index++) {
       let item = this.template;
-      let keyValues;
 
-      item = item.replaceAll(this.string1key, strings1valuesArray[index]);
-      item = item.replaceAll(this.string2key, strings2valuesArray[index]);
-
-      result += item;
-      result += '\n\n';
-    }
-
-
-    this.allKeyValues.forEach((keyValues) => {
-      let count = keyValues.values.length;
-
-      for (let index = 0; index < count; index++) {
+      this.allKeysValues.forEach((keyValues) => {
         item = item.replaceAll(keyValues.key, keyValues.values[index]);
-
-        result += item;
-        result += '\n\n';
-      }
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    let strings1valuesArray = this.strings1values.split('\n');
-    let strings2valuesArray = this.strings2values.split('\n');
-
-    let count = strings1valuesArray.length;
-
-    for (let index = 0; index < count; index++) {
-      let item = this.template;
-      let keyValues;
-
-      item = item.replaceAll(this.string1key, strings1valuesArray[index]);
-      item = item.replaceAll(this.string2key, strings2valuesArray[index]);
+      });
 
       result += item;
       result += '\n\n';
@@ -109,14 +77,14 @@ export class HomePageComponent implements OnInit {
   }
 
   addKey() {
-    this.allKeyValues.push(new KeyValues());
+    this.allKeysValues.push(new KeyValues());
   }
 }
 
 export const EXAMPLE_TEMPLATE =
   '# Entry 1: cn={cn},ou=users,ou=312klp-SZKOL,dc=ldap,dc=local\ndn: cn={cn},ou=users,ou=312klp-SZKOL,dc=ldap,dc=local\ncn: {cn}\ngidnumber: 2001\nhomedirectory: /home/users/{cn}\nobjectclass: inetOrgPerson\nobjectclass: posixAccount\nobjectclass: top\nsn: {cn}\nuid: {cn}\nuidnumber: {uidNo}';
 
-export const EXAMPLE_KEYVALUES = [
+export const EXAMPLE_KEYSVALUES = [
   {
     key: '{cn}',
     values: 'Maniek\nGrazyna',
