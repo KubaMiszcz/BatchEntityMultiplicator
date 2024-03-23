@@ -1,6 +1,7 @@
 import { IKeyValues, KeyValues } from './../../models/KeyValues.model';
 import { AppService } from '../../services/app.service';
 import { Component, OnInit } from '@angular/core';
+import { EXAMPLE_KEYSVALUES, EXAMPLE_KEYSVALUESV2, EXAMPLE_TEMPLATE } from 'src/assets/app-example-data';
 
 @Component({
   selector: 'app-home-page',
@@ -12,6 +13,7 @@ export class HomePageComponent implements OnInit {
   template = EXAMPLE_TEMPLATE;
 
   allKeysValues: IKeyValues[] = EXAMPLE_KEYSVALUES;
+  inputData = EXAMPLE_KEYSVALUESV2;
 
   string1key = '{cn}';
   strings1values = 'Maniek\nGrazyna';
@@ -23,11 +25,11 @@ export class HomePageComponent implements OnInit {
 
   constructor(private appService: AppService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {  }
 
   generate() {
     // check if same lengyth in stringvalues
-let result = '';
+    let result = '';
     let item = this.template;
 
     this.fillValuesArrays(this.allKeysValues);
@@ -43,7 +45,6 @@ let result = '';
       result += '\n\n';
     }
 
-
     this.result = result;
     console.log(result);
   }
@@ -55,42 +56,13 @@ let result = '';
     });
   }
 
-  generate2() {
-    // check if same lengyth in stringvalues
-    let result = '';
-    let item = this.template;
-
-    let count = this.allKeysValues[0]?.values.length;
-    count = 1;
-    for (let index = 0; index < count; index++) {
-      let item = this.template;
-
-      this.allKeysValues.forEach((keyValues) => {
-        item = item.replaceAll(keyValues.key, keyValues.values[index]);
-      });
-
-      result += item;
-      result += '\n\n';
-    }
-
-    console.log(result);
-  }
-
   addKey() {
     this.allKeysValues.push(new KeyValues());
   }
+
+  extractData() {
+    throw new Error('Method not implemented.');
+  }
 }
 
-export const EXAMPLE_TEMPLATE =
-  '# Entry 1: cn={cn},ou=users,ou=312klp-SZKOL,dc=ldap,dc=local\ndn: cn={cn},ou=users,ou=312klp-SZKOL,dc=ldap,dc=local\ncn: {cn}\ngidnumber: 2001\nhomedirectory: /home/users/{cn}\nobjectclass: inetOrgPerson\nobjectclass: posixAccount\nobjectclass: top\nsn: {cn}\nuid: {cn}\nuidnumber: {uidNo}';
 
-export const EXAMPLE_KEYSVALUES = [
-  {
-    key: '{cn}',
-    values: 'Maniek\nGrazyna',
-  },
-  {
-    key: '{uidNo}',
-    values: '2222\n3333',
-  },
-];

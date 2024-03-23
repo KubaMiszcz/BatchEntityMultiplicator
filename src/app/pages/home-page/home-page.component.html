@@ -1,3 +1,21 @@
+<div class="d-flsex justify-content-center">
+    <div class="form-group m-3">
+        <label for="exampleFormControlInput1">raw Keys</label>
+        <input [(ngModel)]="inputData.keys" type="text" class="form-control mb-2" id="exampleFormControlInput21" placeholder="key">
+        <label for="exampleFormControlInput1" class="form-label">raw values</label>
+        <textarea [(ngModel)]="inputData.values" aria-label="asads" class="form-control" name="asd" id="text2" rows="5"
+            placeholder="values"></textarea>
+    </div>
+</div>
+
+<div class="d-flaex justify-csontent-center m-3">
+    <div class="d-grid gsap-2">
+        <button type="button" name="" id="" class="btn btn-primary btn-block" (click)="extractData()">
+            extractData
+        </button>
+    </div>
+</div>
+
 <div class="d-flex justify-content-center">
     <div class="col-5 form-group me-4 mb-3 ">
         <label for="exampleFormControlTextarea1">Example textarea</label>
@@ -21,8 +39,8 @@
 </div>
 
 
-<div class="d-flesx justify-csontent-between mb-4">
-    <div class="d-grid gap-2">
+<div class="d-flaex justify-csontent-center m-3">
+    <div class="d-grid gsap-2">
         <button type="button" name="" id="" class="btn btn-primary btn-block" (click)="generate()">
             Generate
         </button>
@@ -30,8 +48,8 @@
 </div>
 
 
-<div class="d-flsex jusstify-content-between">
-    <div class="form-group me-3 mb-3">
+<div class="d-flsex justify-content-center">
+    <div class="form-group m-3">
         <label for="exampleFormControlInput1" class="form-label">Result</label>
         <textarea [(ngModel)]="result" aria-label="asads" class="form-control" name="asd" id="text1" rows="15"
             placeholder="tekst"></textarea>

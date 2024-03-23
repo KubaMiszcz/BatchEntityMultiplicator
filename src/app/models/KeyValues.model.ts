@@ -8,3 +8,14 @@ export class KeyValues implements IKeyValues {
   key = '';
   values = '';
 }
+
+
+
+
+
+
+
+export interface IRawKeyValues {
+  keys: string;
+  values: string;
+}
