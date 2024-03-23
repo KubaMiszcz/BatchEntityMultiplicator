@@ -9,7 +9,7 @@
                 <img src="assets/imgs/app-icon.png" height="30" alt="">
             </div>
             <div class="me-1" [routerLink]="'home-tab'">
-                <button type="button" name="" id="" class="btn btn-danger" (click)="showClearAllModal()">
+                <button type="button" name="" id="" class="btn btn-danger">
                     CLEAR ALL
                 </button>
             </div>
@@ -25,7 +25,7 @@
 
         <!-- RIGHT SIDE -->
         <div class="d-flex align-items-center">
-            <div class="ms-1" (click)="showQuickSheetModal()">
+            <div class="ms-1">
                 <img src="https://cdn.vectorstock.com/i/1000x1000/60/58/lamp-light-bulb-idea-icon-vector-20716058.webp"
                     height="30" alt="">
             </div>
@@ -36,100 +36,11 @@
                 <img src="assets/imgs/reports-image.png" height="30" alt="">
             </div>
 
-
-            <!-- HAMBURGER MENU ICON -->
-            <button class="ms-2 navbar-toggler" type="button" data-bs-toggle="collsapse" data-bs-target="#navbasrNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-                (click)="isMenuHidden=!isMenuHidden">
-                <span class="navbar-toggler-icon"></span>
-            </button>
         </div>
 
 
 
 
 
-
-
-
-
-        <!-- HAMBURGER MENU -->
-        <div class="collsspse navbar-collapse" [ngClass]="{'hidden':isMenuHidden}" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link" [routerLink]="'sarneg-tab'" (click)="isMenuHidden=!isMenuHidden">kodowanie
-                        SARNEG </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'vigenere-tab'" (click)="isMenuHidden=!isMenuHidden">kodowanie
-                        Vigenere</a>
-                </li>
-                <li *ngFor="let item of getFavouriteReports()" class="nav-item" (click)="setCurrentReport(item)"
-                    (click)="isMenuHidden=!isMenuHidden">
-                    <a class="nav-link" [routerLink]="'report-tab'">{{item.name}}
-                        <i class="fas fa-thumbtack"></i>
-                    </a>
-                </li>
-
-
-
-
-                <li class="nav-item dropdown d-flex justify-content-end ">
-                    <div class="col-4 "> </div>
-                    <div class="col-8 d-flex flex-column">
-
-                        <button type="button" class="btn btn-secondary dropdown-toggle d-flex justify-content-end"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            Wszystkie Raporty
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a *ngFor="let item of reports" class="dropdown-item d-flex justify-content-end"
-                                [routerLink]="'report-tab'" (click)="setCurrentReport(item)"
-                                (click)="isMenuHidden=!isMenuHidden">{{item.name}}</a>
-                        </div>
-                    </div>
-                </li>
-
-
-                <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'settings-page'" (click)="isMenuHidden=!isMenuHidden">Ustawienia </a>
-                </li>
-                <!-- <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'help-page'" (click)="isMenuHidden=!isMenuHidden">Help </a>
-                </li> -->
-                <!-- <li class="nav-item">
-                    <a class="nav-link" [routerLink]="'help-page'" (click)="isMenuHidden=!isMenuHidden">About </a>
-                </li> -->
-            </ul>
-        </div>
     </div>
 </nav>
-
-
-
-
-
-
-
-
-
-
-
-<!-- MODALS -->
-<ng-template #infoModal let-modal>
-    <div class="modal-header p-2">
-        <h4 class="modal-title">Quick Data:</h4>
-        <button type="button" class="btn-close me-1" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body p-2">
-        <app-quick-data></app-quick-data>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary w-100 p-2" (click)="modal.close('Close click')">Close</button>
-    </div>
-</ng-template>
-
-<!-- <app-modal-generic [title]="'aa'" [content]="'content'"        (modalResult)="closeClearAllModal($event)"></app-modal-generic> -->
-<!-- <ng-template #clearAllModal let-modal>
-        <app-modal-generic></app-modal-generic>
-</ng-template> -->

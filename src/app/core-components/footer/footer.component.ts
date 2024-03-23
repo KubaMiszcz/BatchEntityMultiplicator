@@ -1,5 +1,5 @@
-import { AppSettingsService } from 'src/app/services/app-settings.service';
 import { Component } from '@angular/core';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-footer',
@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent {
-  version = this.appSettingsService.version;
-  build = this.appSettingsService.build;
+  version = this.appService.version;
+  build = this.appService.build;
 
-  constructor(private appSettingsService: AppSettingsService) {}
+  constructor(private appService: AppService) {}
 }
