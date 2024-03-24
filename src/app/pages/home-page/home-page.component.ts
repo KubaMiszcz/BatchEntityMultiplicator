@@ -3,7 +3,6 @@ import { AppService } from '../../services/app.service';
 import { Component, OnInit } from '@angular/core';
 import {
   EXAMPLE_KEYSVALUES,
-  EXAMPLE_KEYSVALUESV2,
   EXAMPLE_TEMPLATE,
 } from 'src/assets/app-example-data';
 
@@ -13,7 +12,7 @@ import {
   styleUrls: ['./home-page.component.scss'],
 })
 export class HomePageComponent implements OnInit {
-  inputData = EXAMPLE_KEYSVALUESV2;
+  inputData = EXAMPLE_KEYSVALUES;
   generatedOutput = 'result';
   template = EXAMPLE_TEMPLATE;
   keys: string[] = [];
@@ -21,6 +20,10 @@ export class HomePageComponent implements OnInit {
   keysWithValues: KeyValues[] = [];
 
   ignoredNewLineChar = '|';
+  keysDelimiter = ';';
+  keysDelimiterText = ';';
+  valuesDelimiter = '\t';
+  valuesDelimiterText = '\\t';
 
   constructor(private appService: AppService) {}
 
@@ -28,27 +31,44 @@ export class HomePageComponent implements OnInit {
     this.extractData();
     this.fillTextAreasContent(this.keys);
   }
-
+  
   extractData() {
-    this.keys = this.inputData.singleRowWithAllKeys.trim().split('\t');
+    // this.validateInput();
+    this.validateDelimiters();
+    
+    this.keys = this.inputData.singleRowWithAllKeys.trim().split(this.keysDelimiter).map(k=>k.trim());
     this.valuesRows = [];
-
+    
     // this.appService.pivotArray(values);
-
+    
     this.inputData.singleRowWithAllValues
-      .trim()
-      .split('\n')
-      .forEach((row) => {
-        this.valuesRows.push(row.split('\t'));
-      });
+    .trim()
+    .split('\n')
+    .forEach((row) => {
+      this.valuesRows.push(row.split(this.valuesDelimiter));
+    });
+
+    this.fillTextAreasContent(this.keys);
   }
 
-  getValuesForKey(key: string) {
-    console.log('keys', key);
-    return 'ee';
+  validateDelimiters() {
+    if (this.keysDelimiterText==='\\t') {
+      this.keysDelimiter='\t'
+    }
+    if (this.keysDelimiterText==='\\n') {
+      this.keysDelimiter='\n'
+    }
+    if (this.valuesDelimiterText==='\\t') {
+      this.valuesDelimiter='\t'
+    }
+    if (this.valuesDelimiterText==='\\n') {
+      this.valuesDelimiter='\n'
+    }
   }
 
   fillTextAreasContent(keys: string[]) {
+    this.keysWithValues = [];
+
     keys.forEach((k) => {
       let idx = keys.indexOf(k);
       let keyValue: IKeyValues = {
@@ -66,7 +86,7 @@ export class HomePageComponent implements OnInit {
 
 
   generateOutput() {
-    // check if same lengyth in stringvalues
+    // check if same length in stringvalues
     let result = '';
     
     this.valuesRows.forEach((valueRow) => {
