@@ -9,9 +9,9 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: batch-entity-multiplicator
+    # defaults:
+    #   run:
+    #     working-directory: batch-entity-multiplicator
     steps:
     - name: Checkout
       uses: actions/checkout@v2
