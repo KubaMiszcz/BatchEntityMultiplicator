@@ -1,11 +1,8 @@
 import { ILDAPEntity } from 'src/app/models/LDAPEntity.model';
-import { IKeyValuesDEPR, KeyValues } from '../../models/KeyValues.model';
 import { AppService } from '../../services/app.service';
 import { Component, OnInit } from '@angular/core';
 import {
-  EXAMPLE_KEYSVALUES,
   EXAMPLE_LDIF_SCHEMA,
-  EXAMPLE_TEMPLATE,
 } from 'src/assets/app-example-data';
 import { DATA_TYPES, ENTITY_TYPES } from 'src/app/models/LDAPTypes.enum';
 
@@ -18,6 +15,7 @@ export class LDAPOrphanFinderPageComponent implements OnInit {
   ldifSchemaRawInput = EXAMPLE_LDIF_SCHEMA;
   entities: ILDAPEntity[] = [];
   allDNs: string[] = [];
+  generatedOutput = '';
 
   constructor(private appService: AppService) {}
 
@@ -27,18 +25,26 @@ export class LDAPOrphanFinderPageComponent implements OnInit {
   }
 
   checkForOrphans() {
+    let result='';
+
     this.validateSchema();
     this.extractEntities();
 
-    this.allDNs = this.entities.map(e=>e.dn);
-    console.log(this.allDNs);
-    
+
+    this.allDNs = this.entities.map((e) => e.dn);
+
+    let test = this.entities.filter((e) => !e.cn);
+    // console.log(this.allDNs);
+    console.log(test);
+    this.checkGroupsOfNamesForMissingMembers();
 
     this.checkGroupsForMissingMemberUids();
-    this.checkGroupsOfNamesForMissingMembers();
     this.checkForDuplicatedUserIds();
     this.checkForDuplicatedGroupIds();
     this.checkUsersHomeDirectories();
+
+
+
   }
 
   validateSchema() {
@@ -99,9 +105,8 @@ export class LDAPOrphanFinderPageComponent implements OnInit {
   getSinglePropertyInRawEntity(entity: string, propName: string) {
     let result = this.getPropertiesInRawEntity(entity, propName);
     if (result.length > 1) {
-      return (
-        "ERR: more than one prop '" + propName + "'" + ' with values: ' + result
-      );
+      let msg = "ERR: more than one prop '" + propName + "'" + ' with values: ' + result
+      return msg;
     }
 
     return result[0];
@@ -116,7 +121,9 @@ export class LDAPOrphanFinderPageComponent implements OnInit {
   }
 
   checkGroupsForMissingMemberUids() {}
-  checkGroupsOfNamesForMissingMembers() {}
+  checkGroupsOfNamesForMissingMembers() {
+    // let allGroupOfMembers
+  }
   checkForDuplicatedUserIds() {}
   checkForDuplicatedGroupIds() {}
   checkUsersHomeDirectories() {}
