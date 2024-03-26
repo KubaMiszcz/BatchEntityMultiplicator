@@ -14,8 +14,8 @@ export class KeyValues implements IKeyValues {
 
 
 
-
-export interface IRawInputData {
-  singleRowWithAllKeys: string;
-  singleRowWithAllValues: string;
-}
+//kmm
+// export interface IRawInputData {
+//   singleRowWithAllKeys: string;
+//   singleRowWithAllValues: string;
+// }
