@@ -1,5 +1,5 @@
 # BatchEntityMultiplicator
-
+live version: [https://kubamiszcz.github.io/BatchEntityMultiplicator/](https://kubamiszcz.github.io/BatchEntityMultiplicator/)
 
 default delimiter '\t'
 data as columns
