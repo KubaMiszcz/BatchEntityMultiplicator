@@ -29,8 +29,14 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.validateDelimiter();
     this.extractData(this.inputDataDelimiter);
+    this.checkForPossibleMissingKeys();
     this.fillTextAreasContent(this.keys);
     this.generateOutput();
+  }
+  checkForPossibleMissingKeys() {
+    //kmm check this
+    // console.warn(to be implemented);
+    
   }
   
   extractData(delimiter: string = '\t') {
