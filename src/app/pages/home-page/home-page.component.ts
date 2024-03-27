@@ -83,7 +83,7 @@ export class HomePageComponent implements OnInit {
         entryToAppend = entryToAppend.replaceAll(key, value);
       });
 
-      result += entryToAppend + '\n\n';
+      result += entryToAppend + '\n';
     });
 
     this.outputResults = result;
